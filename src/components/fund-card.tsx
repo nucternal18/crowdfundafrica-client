@@ -11,37 +11,34 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { Campaigns } from "@/context/state-context-provider";
 
 type FundCardProps = React.ComponentProps<typeof Card> & {
-  owner: string;
-  title: string;
-  description: string;
-  target: string;
-  deadline: string;
-  amountCollected: string;
-  image: string;
+  campaign: Campaigns;
   className?: string;
   handleClick: () => void;
 };
 
 const FundCard = ({
-  owner,
-  title,
-  description,
-  target,
-  deadline,
-  amountCollected,
-  image,
+  campaign: {
+    title,
+    description,
+    amountCollected,
+    target,
+    deadline,
+    image,
+    owner,
+  },
   className,
   handleClick,
   ...props
 }: FundCardProps) => {
-  const remainingDays = daysLeft(deadline);
+  const remainingDays = daysLeft(deadline as string);
 
   return (
     <Card
       className={cn(
-        "sm:w-[288px] w-full bg-[#1c1c24] cursor-pointer",
+        " w-full bg-[#1c1c24] cursor-pointer",
         className,
       )}
       onClick={handleClick}
@@ -79,10 +76,10 @@ const FundCard = ({
           <div className="flex justify-between flex-wrap mt-[15px] gap-2">
             <div className="flex flex-col">
               <h4 className="font-epilogue font-semibold text-[14px] text-[#b2b3bd] leading-[22px]">
-                {amountCollected}
+                {amountCollected as string}
               </h4>
               <p className="mt-[3px] font-epilogue font-normal text-[12px] leading-[18px] text-[#808191] sm:max-w-[120px] truncate">
-                Raised of {target}
+                Raised of {target as string}
               </p>
             </div>
             <div className="flex flex-col">

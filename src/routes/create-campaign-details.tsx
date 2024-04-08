@@ -7,6 +7,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 // import { Matcher } from "react-day-picker";
 import { format } from "date-fns";
 
+import { CalendarIcon } from "lucide-react";
+import { toEther } from "thirdweb";
 import { useStateContext } from "../context/state-context-provider";
 import { money } from "../assets";
 import { Loader } from "../components/loader";
@@ -31,7 +33,6 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { checkIfImage } from "../utils";
 import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
 
 export const Route = createFileRoute("/create-campaign-details")({
   component: CreateCampaignDetails,
@@ -42,7 +43,7 @@ const formSchema = z.object({
   title: z.string(),
   description: z.string(),
   target: z.string(),
-  deadline: z.string(),
+  deadline: z.date(),
   image: z.string().url(),
 });
 
@@ -59,13 +60,14 @@ function CreateCampaignDetails() {
       title: "",
       description: "",
       target: "",
-      deadline: "",
+      deadline: new Date(),
       image: "",
     },
   });
 
   // 2. Define a submit handler.
   const handleSubmit: SubmitHandler<FormSchemaProps> = useCallback((values) => {
+    console.log("🚀 ~ consthandleSubmit:SubmitHandler<FormSchemaProps>=useCallback ~ values:", values)
     const image = values.image;
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
@@ -74,7 +76,7 @@ function CreateCampaignDetails() {
         setIsLoading(true);
         await createCampaign({
           ...values,
-          target: ethers.utils.parseUnits(values.target, 18),
+          target: ethers.utils.parseEther(values.target).toString(),
         });
         setIsLoading(false);
         navigate({ to: "/" });
@@ -227,14 +229,14 @@ function CreateCampaignDetails() {
                         selected={field.value as unknown as Date | undefined}
                         onSelect={field.onChange}
                         disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
+                           date < new Date("1900-01-01")
                         }
                         initialFocus
                       />
                     </PopoverContent>
                   </Popover>
                   <FormDescription>
-                    Your date of birth is used to calculate your age.
+                    This the date your campaign will end.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

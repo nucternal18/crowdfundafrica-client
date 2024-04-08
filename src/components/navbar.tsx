@@ -11,7 +11,7 @@ export function Navbar() {
   const navigate = useNavigate();
   const [isActive, setIsActive] = React.useState("dashboard");
   const [toggleDrawer, setToggleDrawer] = React.useState(false);
-  const { connect, address } = useStateContext();
+  const { handleConnect, address } = useStateContext();
   return (
     <div className="flex md:flex-row top-5 items-center flex-col-reverse justify-between mb-[35px] gap-6">
       <div className="lg:flex-1 flex flex-row items-center w-full md:max-w-[458px] py-2 pl-4 pr-2 h-[52px] bg-[#1c1c24] rounded-[100px]">
@@ -38,7 +38,7 @@ export function Navbar() {
           )}
           onClick={() => {
             if (address) navigate({ to: "/create-campaign-details" });
-            else connect();
+            else handleConnect();
           }}
         >
           {address ? "Create a campaign" : "Connect"}
@@ -108,7 +108,7 @@ export function Navbar() {
               )}
               onClick={() => {
                 if (address) navigate({ to: "/create-campaign-details" });
-                else connect();
+                else handleConnect();
               }}
             >
               {address ? "Create a campaign" : "Connect"}

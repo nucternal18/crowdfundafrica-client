@@ -22,7 +22,7 @@ function CampaignDetails() {
       select: (state) => state.location,
     });
     const navigate = useNavigate();
-  const { donate, getDonations, smartContract, address } = useStateContext();
+  const { donate, getDonations, address } = useStateContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -33,26 +33,26 @@ function CampaignDetails() {
     }[]
   >([]);
 
-  const remainingDays = daysLeft(selected.deadline);
+  // const remainingDays = daysLeft(selected.state);
 
-  const fetchDonators = async () => {
-    const data = await getDonations(selected.pId);
+//   const fetchDonators = async () => {
+//     const data = await getDonations(selected.pId);
 
-    setDonators(data);
-  }
+//     setDonators(data);
+//   }
 
-//   useEffect(() => {
-//     if(smartContract) fetchDonators();
-//   }, [smartContract, address])
+// //   useEffect(() => {
+// //     if(smartContract) fetchDonators();
+// //   }, [smartContract, address])
 
-  const handleDonate = async () => {
-    setIsLoading(true);
+//   const handleDonate = async () => {
+//     setIsLoading(true);
 
-    donate(state.pId, amount); 
+//     donate(state.pId, amount); 
 
-    navigate({to: '/'})
-    setIsLoading(false);
-  }
+//     navigate({to: '/'})
+//     setIsLoading(false);
+//   }
 
   return <div>{isLoading && <Loader />}</div>;
 }
