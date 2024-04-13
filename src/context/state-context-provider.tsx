@@ -129,13 +129,13 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
       const _target = form.target as bigint;
       const _deadline = BigInt(new Date(form.deadline as Date).getTime()); // Convert to bigint
       const _image = form.image as string;
-
+      
       const tx = prepareContractCall({
         contract,
         method: "createCampaign",
         params: [_owner, _title, _description, _target, _deadline, _image],
       });
-      console.log("🚀 ~ publishCampaign ~ tx:", tx)
+     
       const transactionResult = await sendTransaction(tx as PreparedTransaction);
 
       console.log("contract call success", transactionResult);

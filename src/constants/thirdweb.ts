@@ -12,7 +12,7 @@ export const client = createThirdwebClient({
   clientId: import.meta.env.VITE_THIRDWEB_CLIENT_ID as string,
 });
 
-const CONTRACT_ADDRESS = "0xff2B2Cc606781f5F2b05526b4785D87e22643cf3";
+const CONTRACT_ADDRESS = "0x4707D405B98b684b175BD4aC206e07c70E958922";
 
 const contractABI = [
   {
@@ -130,6 +130,72 @@ const contractABI = [
   },
   {
     type: "function",
+    name: "getCampaign",
+    inputs: [
+      {
+        type: "uint256",
+        name: "_campaignId",
+        internalType: "uint256",
+      },
+    ],
+    outputs: [
+      {
+        type: "tuple",
+        name: "",
+        components: [
+          {
+            type: "address",
+            name: "owner",
+            internalType: "address",
+          },
+          {
+            type: "string",
+            name: "title",
+            internalType: "string",
+          },
+          {
+            type: "string",
+            name: "description",
+            internalType: "string",
+          },
+          {
+            type: "uint256",
+            name: "target",
+            internalType: "uint256",
+          },
+          {
+            type: "uint256",
+            name: "deadline",
+            internalType: "uint256",
+          },
+          {
+            type: "uint256",
+            name: "amountCollected",
+            internalType: "uint256",
+          },
+          {
+            type: "string",
+            name: "image",
+            internalType: "string",
+          },
+          {
+            type: "address[]",
+            name: "donators",
+            internalType: "address[]",
+          },
+          {
+            type: "uint256[]",
+            name: "donations",
+            internalType: "uint256[]",
+          },
+        ],
+        internalType: "struct CrowdFundinAfrica.Campaign",
+      },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
     name: "getCampains",
     inputs: [],
     outputs: [
@@ -224,6 +290,57 @@ const contractABI = [
       },
     ],
     stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "removeCampaign",
+    inputs: [
+      {
+        type: "uint256",
+        name: "_campaignId",
+        internalType: "uint256",
+      },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "updateCampaign",
+    inputs: [
+      {
+        type: "uint256",
+        name: "_campaignId",
+        internalType: "uint256",
+      },
+      {
+        type: "string",
+        name: "_title",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "_description",
+        internalType: "string",
+      },
+      {
+        type: "uint256",
+        name: "_target",
+        internalType: "uint256",
+      },
+      {
+        type: "uint256",
+        name: "_deadline",
+        internalType: "uint256",
+      },
+      {
+        type: "string",
+        name: "_image",
+        internalType: "string",
+      },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
   },
 ] as const;
 
